@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊 5W2H</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <meta name="theme-color" content="#67b7b2">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="manifest" id="my-manifest" href="manifest.json">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100 font-sans flex flex-col min-h-screen">
+
+    <div id="windows-notification">
+        <div class="p-4 flex items-start space-x-3">
+            <div class="flex-shrink-0">
+                <i class="fas fa-comment-dots text-2xl text-[#67b7b2]"></i>
+            </div>
+            <div class="flex-1">
+                <h4 class="font-bold text-sm">Bem-vindo ao EDCELL-TECH 5W2H</h4>
+                <p class="text-xs text-gray-300 mt-1">Sua ferramenta de gestão.</p>
+                <a href="https://usuario2207ed-hue.github.io/EDCELL-TECH/" target="_blank"
+                   class="mt-2 inline-block bg-[#67b7b2] hover:bg-[#569995] text-white text-xs px-3 py-1 rounded transition">
+                    Acessar Nosso Site
+                </a>
+            </div>
+            <button onclick="closeNotification()" class="text-gray-400 hover:text-white">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <header class="bg-[#4a8a85] text-white p-4 shadow-lg">
+        <div class="container mx-auto text-center">
+            <h1 class="text-3xl md:text-4xl font-bold animate-neon tracking-widest uppercase cursor-default">
+                Ferramenta 5W2H
+            </h1>
+            <p class="text-sm mt-2 opacity-80 animate-pulse">Plano de Ação Inteligente 5W2H</p>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto p-2 md:p-6">
+
+        <div class="flex flex-wrap justify-between items-center mb-4 bg-white p-3 rounded-lg shadow">
+            <div class="text-gray-600 text-sm font-semibold">
+                <i class="fas fa-database mr-1"></i> Status: <span id="status-msg">Aguardando...</span>
+            </div>
+            <div class="space-x-2 mt-2 sm:mt-0">
+                <button onclick="clearForm()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded shadow transition flex items-center gap-2 text-sm">
+                    <i class="fas fa-trash"></i> Limpar
+                </button>
+                <button onclick="saveAndDownload()" class="bg-[#67b7b2] hover:bg-[#4a8a85] text-white px-4 py-2 rounded shadow transition flex items-center gap-2 text-sm">
+                    <i class="fas fa-save"></i> Salvar & Baixar
+                </button>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-xl overflow-hidden border border-gray-200">
+            <div class="overflow-x-auto pb-2">
+                <form id="form-5w2h">
+                    <table class="w-full min-w-[1200px] border-collapse">
+                        <thead>
+                            <tr>
+                                <th colspan="11" class="bg-[#67b7b2] text-white py-3 text-xl font-bold border-b-2 border-white">
+                                    Plano de Ação 5W2H
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class="th-header w-16">Ações</th>
+                                <th class="th-header w-24">Status</th>
+                                <th class="th-header">What <span class="sub-header">O quê?</span></th>
+                                <th class="th-header">Why <span class="sub-header">Por quê?</span></th>
+                                <th class="th-header">Who <span class="sub-header">Quem?</span></th>
+                                <th class="th-header">Where <span class="sub-header">Onde?</span></th>
+                                <th class="th-header w-28">When <span class="sub-header">Início</span></th>
+                                <th class="th-header w-28">When <span class="sub-header">Fim Prev.</span></th>
+                                <th class="th-header w-28">When <span class="sub-header">Realizado</span></th>
+                                <th class="th-header">How <span class="sub-header">Como?</span></th>
+                                <th class="th-header">How much <span class="sub-header">Quanto?</span></th>
+                            </tr>
+
+                            <tr class="bg-gray-100 text-xs text-gray-500 text-center italic">
+                                <td class="p-1 border">ID</td>
+                                <td class="p-1 border">Status Atual</td>
+                                <td class="p-1 border">Descreva sua ação</td>
+                                <td class="p-1 border">Justifique a importância</td>
+                                <td class="p-1 border">Responsável pela ação</td>
+                                <td class="p-1 border">Local físico/Depto</td>
+                                <td class="p-1 border">00/00/0000</td>
+                                <td class="p-1 border">00/00/0000</td>
+                                <td class="p-1 border">00/00/0000</td>
+                                <td class="p-1 border">Método de execução</td>
+                                <td class="p-1 border">Custo estimado</td>
+                            </tr>
+                        </thead>
+
+                        <tbody id="table-body"></tbody>
+                    </table>
+                </form>
+            </div>
+
+            <div class="bg-[#d8efef] p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 border-t border-[#67b7b2]">
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase">Responsável:</label>
+                    <input type="text" id="meta-responsavel" class="w-full bg-transparent border-b border-gray-500 focus:border-[#67b7b2] outline-none py-1 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase">Área:</label>
+                    <input type="text" id="meta-area" class="w-full bg-transparent border-b border-gray-500 focus:border-[#67b7b2] outline-none py-1 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase">Demais Envolvidos:</label>
+                    <input type="text" id="meta-envolvidos" class="w-full bg-transparent border-b border-gray-500 focus:border-[#67b7b2] outline-none py-1 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase">Data de Atualização:</label>
+                    <input type="date" id="meta-data" class="w-full bg-transparent border-b border-gray-500 focus:border-[#67b7b2] outline-none py-1 text-sm">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-4 mt-6 text-center border-t-4 border-[#67b7b2]">
+        <div class="container mx-auto">
+            <h2 class="text-xl font-bold animate-float inline-block">EDCELL-TECH</h2>
+            <p class="text-xs text-gray-400 mt-1">© 2025 Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
